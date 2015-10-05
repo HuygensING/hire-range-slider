@@ -1,3 +1,6 @@
+### v1.0.1	(2015/10/5 16:36)
+* name change of entrypoint class
+
 ### v1.0.0	(2015/10/5 16:28)
 * Bump to v1.0.0
 

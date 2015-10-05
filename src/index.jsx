@@ -10,7 +10,7 @@ const MOUSE_UP = 1;
 
 React.initializeTouchEvents(true);
 
-class RangeFacet extends React.Component {
+class RangeSlider extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -155,11 +155,11 @@ class RangeFacet extends React.Component {
 	}
 }
 
-RangeFacet.propTypes = {
+RangeSlider.propTypes = {
 	lowerLimit: React.PropTypes.number,
 	onChange: React.PropTypes.func.isRequired,
 	upperLimit: React.PropTypes.number
 };
 
 
-export default RangeFacet;
+export default RangeSlider;

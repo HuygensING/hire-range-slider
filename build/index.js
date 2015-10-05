@@ -59,13 +59,13 @@ var MOUSE_UP = 1;
 
 _react2["default"].initializeTouchEvents(true);
 
-var RangeFacet = (function (_React$Component) {
-	_inherits(RangeFacet, _React$Component);
+var RangeSlider = (function (_React$Component) {
+	_inherits(RangeSlider, _React$Component);
 
-	function RangeFacet(props) {
-		_classCallCheck(this, RangeFacet);
+	function RangeSlider(props) {
+		_classCallCheck(this, RangeSlider);
 
-		_get(Object.getPrototypeOf(RangeFacet.prototype), "constructor", this).call(this, props);
+		_get(Object.getPrototypeOf(RangeSlider.prototype), "constructor", this).call(this, props);
 
 		this.mouseState = MOUSE_UP;
 		this.mouseUpListener = this.onMouseUp.bind(this);
@@ -75,7 +75,7 @@ var RangeFacet = (function (_React$Component) {
 		this.state = _extends({}, this.propsToState(this.props), { hoverState: null });
 	}
 
-	_createClass(RangeFacet, [{
+	_createClass(RangeSlider, [{
 		key: "componentDidMount",
 		value: function componentDidMount() {
 			window.addEventListener("mouseup", this.mouseUpListener);
@@ -221,16 +221,16 @@ var RangeFacet = (function (_React$Component) {
 		}
 	}]);
 
-	return RangeFacet;
+	return RangeSlider;
 })(_react2["default"].Component);
 
-RangeFacet.propTypes = {
+RangeSlider.propTypes = {
 	lowerLimit: _react2["default"].PropTypes.number,
 	onChange: _react2["default"].PropTypes.func.isRequired,
 	upperLimit: _react2["default"].PropTypes.number
 };
 
-exports["default"] = RangeFacet;
+exports["default"] = RangeSlider;
 module.exports = exports["default"];
 
 },{"insert-css":1,"react":"react"}]},{},[2])(2)

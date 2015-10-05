@@ -9,6 +9,10 @@
     "test": "mocha --compilers js:babel/register --recursive test/unit",
     "test:watch": "nodemon -x \"mocha --compilers js:babel/register --recursive --watch test/unit\" -w test -w build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HuygensING/hire-range-slider.git"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

@@ -7,24 +7,27 @@
     user-drag: none;
 	cursor: pointer;
 	width: 100%;
-	stroke: #000;
-	fill: #000;
+	stroke: #f1ebe6;
+	fill: #f1ebe6;
 }
 
 .hire-range-slider .range-line {
 	stroke-width: 8;
-	stroke-opacity: 0.3;
+	
 }
 
 .hire-range-slider:hover > .range-line {
-	stroke-opacity: 0.35;
+	
 }
 
 .hire-range-slider .range-line circle {
 	stroke-width: 0;
-	fill-opacity: 0.2;
 }
 
 .hire-range-slider .range-line circle.hovering {
-	fill-opacity: 1;
+	fill: #bda47e;
+}
+
+.hire-range-slider .range-line path.hovering {
+	stroke: #bda47e;
 }

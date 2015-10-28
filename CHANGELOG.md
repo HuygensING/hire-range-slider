@@ -1,3 +1,6 @@
+### v1.1.1	(2015/10/28 15:2)
+* Only insert-css when window and dom present
+
 ### v1.1.0	(2015/10/6 8:2)
 * slide entire range
 * Create README.md

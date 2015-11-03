@@ -1,3 +1,8 @@
+### v1.1.2	(2015/11/3 15:6)
+* fix jira TIM-542 use circle and bar as handle in stead of cursor pos
+* added gitignore
+* removed node_modules
+
 ### v1.1.1	(2015/10/28 15:2)
 * Only insert-css when window and dom present
 

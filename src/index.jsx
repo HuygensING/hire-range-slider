@@ -66,22 +66,17 @@ class RangeSlider extends React.Component {
 				percentage = 0;
 			}
 			let center = (this.state.upperLimit + this.state.lowerLimit) / 2;
-			let deltaL = Math.max(percentage - this.state.lowerLimit, this.state.lowerLimit - percentage);
-			let deltaU = Math.max(percentage - this.state.upperLimit, this.state.upperLimit - percentage);
-			let deltaC = Math.max(percentage - center, center - percentage);
 
-			if(deltaC < deltaU && deltaC < deltaL) {
+			if(this.state.hoverState === "bar") {
 				let lowerLimit = percentage + this.state.lowerLimit - center;
 				let upperLimit = percentage - (center - this.state.upperLimit);
 				if(upperLimit >= 1) { upperLimit = 1; }
 				if(lowerLimit <= 0) { lowerLimit = 0; }
-				return {bar:
-					{lowerLimit: lowerLimit, upperLimit: upperLimit}
-				};
-			} else if(deltaL < deltaU) {
+				return {lowerLimit: lowerLimit, upperLimit: upperLimit};
+			} else if(this.state.hoverState === "lowerLimit") {
 				if(percentage >= this.state.upperLimit) { percentage = this.state.upperLimit; }
 				return { lowerLimit: percentage };
-			} else {
+			} else if(this.state.hoverState === "upperLimit") {
 				if(percentage <= this.state.lowerLimit) { percentage = this.state.lowerLimit; }
 				return { upperLimit: percentage};
 			}
@@ -92,35 +87,19 @@ class RangeSlider extends React.Component {
 	setRange(pageX) {
 		let posForLim = this.getPositionForLimit(pageX);
 		if(posForLim !== null) {
-			let hoverState = Object.keys(posForLim)[0];
-			if(hoverState === "bar") {
-				this.setState(posForLim.bar);
-			} else {
-				this.setState(posForLim);
-			}
+			this.setState(posForLim);
 			this.props.onChange({...this.state, refresh: false});
 		}
 	}
 
-	onMouseDown(ev) {
+	onMouseDown(target, ev) {
 		this.mouseState = MOUSE_DOWN;
-		this.setRange(ev.pageX);
-	}
-
-	onTouchStart(ev) {
-		this.mouseState = MOUSE_DOWN;
-		this.setRange(ev.touches[0].pageX);
+		this.setState({hoverState: target});
 		return ev.preventDefault();
 	}
 
-	onMouseMove(ev) {
-		if(React.findDOMNode(this).contains(ev.target)) {
-			let hoverState = Object.keys(this.getPositionForLimit(ev.pageX))[0];
-			if(this.state.hoverState !== hoverState) { this.setState({hoverState: hoverState});	}
-		} else if(this.state.hoverState !== null) {
-			this.setState({hoverState: null});
-		}
 
+	onMouseMove(ev) {
 		if(this.mouseState === MOUSE_DOWN) {
 			this.setRange(ev.pageX);
 			return ev.preventDefault();
@@ -128,7 +107,6 @@ class RangeSlider extends React.Component {
 	}
 
 	onTouchMove(ev) {
-
 		if(this.mouseState === MOUSE_DOWN) {
 			this.setRange(ev.touches[0].pageX);
 			return ev.preventDefault();
@@ -139,17 +117,23 @@ class RangeSlider extends React.Component {
 		if(this.mouseState === MOUSE_DOWN) {
 			this.props.onChange({...this.state, refresh: true});
 		}
+		this.setState({hoverState: null});
 		this.mouseState = MOUSE_UP;
 	}
 
 	getRangePath() {
-		return "M" + (8 + Math.floor(this.state.lowerLimit * 400)) + " 10 L " + (Math.ceil(this.state.upperLimit * 400) - 8) + " 10 Z";
+		return "M" + (8 + Math.floor(this.state.lowerLimit * 400)) + " 13 L " + (Math.ceil(this.state.upperLimit * 400) - 8) + " 13 Z";
 	}
 
 	getRangeCircle(key) {
 		let percentage = this.state[key];
 		return (
-			<circle className={this.state.hoverState === key ? "hovering" : ""} cx={percentage * 400} cy="10" r="10" />
+			<circle
+				className={this.state.hoverState === key ? "hovering" : ""}
+				cx={percentage * 400} cy="13"
+				onMouseDown={this.onMouseDown.bind(this, key)}
+				onTouchStart={this.onMouseDown.bind(this, key)}
+				r="13" />
 		);
 	}
 
@@ -157,15 +141,18 @@ class RangeSlider extends React.Component {
 		let keys = this.state.hoverState === "lowerLimit" ? ["upperLimit", "lowerLimit"] : ["lowerLimit", "upperLimit"];
 		return (
 			<svg className="hire-range-slider"
-				onMouseDown={this.onMouseDown.bind(this)}
-				onTouchStart={this.onTouchStart.bind(this)}
-				viewBox="0 0 400 20">
+				viewBox="0 0 400 26">
 
-				<path d="M0 0 L 0 20 Z" fill="transparent" />
-				<path d="M400 0 L 400 20 Z" fill="transparent" />
-				<path d="M0 10 L 400 10 Z" fill="transparent" />
+				<path d="M0 0 L 0 26 Z" fill="transparent" />
+				<path d="M400 0 L 400 26 Z" fill="transparent" />
+				<path d="M0 13 L 400 13 Z" fill="transparent" />
 				<g className="range-line">
-					<path className={this.state.hoverState === "bar" ? "hovering" : ""} d={this.getRangePath()} />
+					<path
+						className={this.state.hoverState === "bar" ? "hovering" : ""}
+						d={this.getRangePath()}
+						onMouseDown={this.onMouseDown.bind(this, "bar")}
+						onTouchStart={this.onMouseDown.bind(this, "bar")}
+					/>
 					{this.getRangeCircle(keys[0])}
 					{this.getRangeCircle(keys[1])}
 				</g>

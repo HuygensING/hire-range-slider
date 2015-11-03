@@ -24,10 +24,12 @@
 	stroke-width: 0;
 }
 
-.hire-range-slider .range-line circle.hovering {
+.hire-range-slider .range-line circle.hovering,
+.hire-range-slider .range-line circle:hover {
 	fill: #bda47e;
 }
 
-.hire-range-slider .range-line path.hovering {
+.hire-range-slider .range-line path.hovering,
+.hire-range-slider .range-line path:hover {
 	stroke: #bda47e;
 }

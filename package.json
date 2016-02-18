@@ -32,6 +32,7 @@
     "watchify": "^3.3.1"
   },
   "peerDependencies": {
-    "react": "^0.13.3"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
   }
 }

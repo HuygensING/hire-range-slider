@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import insertCss from "insert-css";
 
 let fs = require("fs");
@@ -9,8 +10,6 @@ if (typeof window != 'undefined' && window.document) {
 
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;
-
-React.initializeTouchEvents(true);
 
 class RangeSlider extends React.Component {
 	constructor(props) {
@@ -57,7 +56,7 @@ class RangeSlider extends React.Component {
 	}
 
 	getPositionForLimit(pageX) {
-		let rect = React.findDOMNode(this).getBoundingClientRect();
+		let rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
 		if(rect.width > 0) {
 			let percentage = (pageX - rect.left) / rect.width;
 			if(percentage > 1) {

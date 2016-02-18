@@ -45,6 +45,10 @@ var _react = _dereq_("react");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = _dereq_("react-dom");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _insertCss = _dereq_("insert-css");
 
 var _insertCss2 = _interopRequireDefault(_insertCss);
@@ -57,8 +61,6 @@ if (typeof window != 'undefined' && window.document) {
 
 var MOUSE_DOWN = 0;
 var MOUSE_UP = 1;
-
-_react2["default"].initializeTouchEvents(true);
 
 var RangeSlider = (function (_React$Component) {
 	_inherits(RangeSlider, _React$Component);
@@ -110,7 +112,7 @@ var RangeSlider = (function (_React$Component) {
 	}, {
 		key: "getPositionForLimit",
 		value: function getPositionForLimit(pageX) {
-			var rect = _react2["default"].findDOMNode(this).getBoundingClientRect();
+			var rect = _reactDom2["default"].findDOMNode(this).getBoundingClientRect();
 			if (rect.width > 0) {
 				var percentage = (pageX - rect.left) / rect.width;
 				if (percentage > 1) {
@@ -240,5 +242,5 @@ RangeSlider.propTypes = {
 exports["default"] = RangeSlider;
 module.exports = exports["default"];
 
-},{"insert-css":1,"react":"react"}]},{},[2])(2)
+},{"insert-css":1,"react":"react","react-dom":"react-dom"}]},{},[2])(2)
 });

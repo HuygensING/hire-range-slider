@@ -1,3 +1,8 @@
+### v2.0.0	(2016/5/10 13:2)
+* Bump react peers to 15.0.2
+* removed unused devDeps
+* branch for react 0.14
+
 ### v1.1.2	(2015/11/3 15:6)
 * fix jira TIM-542 use circle and bar as handle in stead of cursor pos
 * added gitignore

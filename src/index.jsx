@@ -1,17 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import insertCss from "insert-css";
+import React, { Component, PropTypes } from 'react';
+import insertCss from 'insert-css';
 
-let fs = require("fs");
-let css = fs.readFileSync(__dirname + "/index.css");
-if (typeof window != 'undefined' && window.document) {
-	insertCss(css, {prepend: true});
+const fs = require('fs');
+const css = fs.readFileSync(`${__dirname}/index.css`);
+if (typeof window !== 'undefined' && window.document) {
+	insertCss(css, { prepend: true });
 }
 
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;
 
-class RangeSlider extends React.Component {
+class RangeSlider extends Component {
 	constructor(props) {
 		super(props);
 
@@ -22,15 +21,15 @@ class RangeSlider extends React.Component {
 
 		this.state = {
 			...this.propsToState(this.props),
-			...{hoverState: null}
+			...{ hoverState: null },
 		};
 	}
 
 	componentDidMount() {
-		window.addEventListener("mouseup", this.mouseUpListener);
-		window.addEventListener("mousemove", this.mouseMoveListener);
-		window.addEventListener("touchend", this.mouseUpListener);
-		window.addEventListener("touchmove", this.touchMoveListener);
+		window.addEventListener('mouseup', this.mouseUpListener);
+		window.addEventListener('mousemove', this.mouseMoveListener);
+		window.addEventListener('touchend', this.mouseUpListener);
+		window.addEventListener('touchmove', this.touchMoveListener);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -38,134 +37,158 @@ class RangeSlider extends React.Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("mouseup", this.mouseUpListener);
-		window.removeEventListener("mousemove", this.mouseMoveListener);
-		window.removeEventListener("touchend", this.mouseUpListener);
-		window.removeEventListener("touchmove", this.touchMoveListener);
-	}
-
-
-
-	propsToState(props) {
-		let lowerLimit = props.lowerLimit || 0;
-		let upperLimit = props.upperLimit || 1;
-		return {
-			lowerLimit: lowerLimit,
-			upperLimit: upperLimit
-		};
+		window.removeEventListener('mouseup', this.mouseUpListener);
+		window.removeEventListener('mousemove', this.mouseMoveListener);
+		window.removeEventListener('touchend', this.mouseUpListener);
+		window.removeEventListener('touchmove', this.touchMoveListener);
 	}
 
 	getPositionForLimit(pageX) {
-		let rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-		if(rect.width > 0) {
+		const rect = this.refs.svg.getBoundingClientRect();
+
+		if (rect.width > 0) {
 			let percentage = (pageX - rect.left) / rect.width;
-			if(percentage > 1) {
+			if (percentage > 1) {
 				percentage = 1;
-			} else if(percentage < 0) {
+			} else if (percentage < 0) {
 				percentage = 0;
 			}
-			let center = (this.state.upperLimit + this.state.lowerLimit) / 2;
+			const center = (this.state.upperLimit + this.state.lowerLimit) / 2;
 
-			if(this.state.hoverState === "bar") {
+			if (this.state.hoverState === 'bar') {
 				let lowerLimit = percentage + this.state.lowerLimit - center;
 				let upperLimit = percentage - (center - this.state.upperLimit);
-				if(upperLimit >= 1) { upperLimit = 1; }
-				if(lowerLimit <= 0) { lowerLimit = 0; }
-				return {lowerLimit: lowerLimit, upperLimit: upperLimit};
-			} else if(this.state.hoverState === "lowerLimit") {
-				if(percentage >= this.state.upperLimit) { percentage = this.state.upperLimit; }
+				if (upperLimit >= 1) { upperLimit = 1; }
+				if (lowerLimit <= 0) { lowerLimit = 0; }
+				return { lowerLimit, upperLimit };
+			} else if (this.state.hoverState === 'lowerLimit') {
+				if (percentage >= this.state.upperLimit) { percentage = this.state.upperLimit; }
 				return { lowerLimit: percentage };
-			} else if(this.state.hoverState === "upperLimit") {
-				if(percentage <= this.state.lowerLimit) { percentage = this.state.lowerLimit; }
-				return { upperLimit: percentage};
+			} else if (this.state.hoverState === 'upperLimit') {
+				if (percentage <= this.state.lowerLimit) { percentage = this.state.lowerLimit; }
+				return { upperLimit: percentage };
 			}
 		}
 		return null;
 	}
 
+	propsToState(props) {
+		const lowerLimit = props.lowerLimit || 0;
+		const upperLimit = props.upperLimit || 1;
+		return {
+			lowerLimit,
+			upperLimit,
+		};
+	}
+
 	setRange(pageX) {
-		let posForLim = this.getPositionForLimit(pageX);
-		if(posForLim !== null) {
+		const posForLim = this.getPositionForLimit(pageX);
+		if (posForLim !== null) {
 			this.setState(posForLim);
-			this.props.onChange({...this.state, refresh: false});
+			this.props.onChange({ ...this.state, refresh: false });
 		}
 	}
 
-	onMouseDown(target, ev) {
+	onMouseDown(hoverState, ev) {
 		this.mouseState = MOUSE_DOWN;
-		this.setState({hoverState: target});
+		this.setState({ hoverState });
 		return ev.preventDefault();
 	}
 
 
 	onMouseMove(ev) {
-		if(this.mouseState === MOUSE_DOWN) {
+		if (this.mouseState === MOUSE_DOWN) {
 			this.setRange(ev.pageX);
 			return ev.preventDefault();
 		}
 	}
 
 	onTouchMove(ev) {
-		if(this.mouseState === MOUSE_DOWN) {
+		if (this.mouseState === MOUSE_DOWN) {
 			this.setRange(ev.touches[0].pageX);
 			return ev.preventDefault();
 		}
 	}
 
 	onMouseUp() {
-		if(this.mouseState === MOUSE_DOWN) {
-			this.props.onChange({...this.state, refresh: true});
+		if (this.mouseState === MOUSE_DOWN) {
+			this.props.onChange({ ...this.state, refresh: true });
 		}
-		this.setState({hoverState: null});
+		this.setState({ hoverState: null });
 		this.mouseState = MOUSE_UP;
 	}
 
-	getRangePath() {
-		return "M" + (8 + Math.floor(this.state.lowerLimit * 400)) + " 13 L " + (Math.ceil(this.state.upperLimit * 400) - 8) + " 13 Z";
+	getRangeLine() {
+		const radius = this.props.handleRadius;
+		return `M${radius} ${radius} L ${400 + radius} ${radius} Z`;
+	}
+
+	getCurrentRangeLine() {
+		const startX = this.props.handleRadius + Math.floor(this.state.lowerLimit * 400);
+		const endX = this.props.handleRadius + Math.ceil(this.state.upperLimit * 400);
+		const y = this.props.handleRadius;
+		return `M${startX} ${y} L ${endX} ${y} Z`;
 	}
 
 	getRangeCircle(key) {
-		let percentage = this.state[key];
+		const percentage = this.state[key];
+
 		return (
 			<circle
-				className={this.state.hoverState === key ? "hovering" : ""}
-				cx={percentage * 400} cy="13"
-				onMouseDown={this.onMouseDown.bind(this, key)}
-				onTouchStart={this.onMouseDown.bind(this, key)}
-				r="13" />
+				className={this.state.hoverState === key ? 'hovering' : ''}
+				cx={this.props.handleRadius + percentage * 400}
+				cy={this.props.handleRadius}
+				onMouseDown={(ev) => this.onMouseDown(key, ev)}
+				onTouchStart={(ev) => this.onMouseDown(key, ev)}
+				r={this.props.handleRadius}
+			/>
 		);
 	}
 
 	render() {
-		let keys = this.state.hoverState === "lowerLimit" ? ["upperLimit", "lowerLimit"] : ["lowerLimit", "upperLimit"];
-		return (
-			<svg className="hire-range-slider"
-				viewBox="0 0 400 26">
+		const keys = this.state.hoverState === 'lowerLimit' ?
+			['upperLimit', 'lowerLimit'] :
+			['lowerLimit', 'upperLimit'];
 
-				<path d="M0 0 L 0 26 Z" fill="transparent" />
-				<path d="M400 0 L 400 26 Z" fill="transparent" />
-				<path d="M0 13 L 400 13 Z" fill="transparent" />
-				<g className="range-line">
+		return (
+			<svg
+				className="hire-range-slider"
+				ref="svg"
+				viewBox={`0 0 ${400 + this.props.handleRadius * 2} ${this.props.handleRadius * 2 + 2}`}
+			>
+				<path
+					className="range-line"
+					d={this.getRangeLine()}
+					fill="transparent"
+					strokeWidth={this.props.lineWidth}
+				/>
+				<g className="current-range-line">
 					<path
-						className={this.state.hoverState === "bar" ? "hovering" : ""}
-						d={this.getRangePath()}
-						onMouseDown={this.onMouseDown.bind(this, "bar")}
-						onTouchStart={this.onMouseDown.bind(this, "bar")}
+						strokeWidth={this.props.lineWidth}
+						className={this.state.hoverState === 'bar' ? 'hovering' : ''}
+						d={this.getCurrentRangeLine()}
+						onMouseDown={(ev) => this.onMouseDown('bar', ev)}
+						onTouchStart={(ev) => this.onMouseDown('bar', ev)}
 					/>
 					{this.getRangeCircle(keys[0])}
 					{this.getRangeCircle(keys[1])}
 				</g>
-
 			</svg>
 		);
 	}
 }
 
 RangeSlider.propTypes = {
-	lowerLimit: React.PropTypes.number,
-	onChange: React.PropTypes.func.isRequired,
-	upperLimit: React.PropTypes.number
+	handleRadius: PropTypes.number,
+	lineWidth: PropTypes.number,
+	lowerLimit: PropTypes.number,
+	onChange: PropTypes.func.isRequired,
+	upperLimit: PropTypes.number,
 };
 
+RangeSlider.defaultProps = {
+	handleRadius: 8,
+	lineWidth: 4,
+};
 
 export default RangeSlider;

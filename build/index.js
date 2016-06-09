@@ -23,7 +23,7 @@ module.exports = function (css, options) {
 };
 
 },{}],2:[function(_dereq_,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -31,88 +31,76 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = _dereq_("react");
+var _react = _dereq_('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = _dereq_("react-dom");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _insertCss = _dereq_("insert-css");
+var _insertCss = _dereq_('insert-css');
 
 var _insertCss2 = _interopRequireDefault(_insertCss);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var css = Buffer("LmhpcmUtcmFuZ2Utc2xpZGVyIHsKICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7CiAgICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lOwogICAgLW1zLXVzZXItc2VsZWN0OiBub25lOyAKICAgIHVzZXItc2VsZWN0OiBub25lOyAKICAgIC13ZWJraXQtdXNlci1kcmFnOiBub25lOwogICAgdXNlci1kcmFnOiBub25lOwoJY3Vyc29yOiBwb2ludGVyOwoJd2lkdGg6IDEwMCU7CglzdHJva2U6ICNmMWViZTY7CglmaWxsOiAjZjFlYmU2Owp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLnJhbmdlLWxpbmUgewoJc3Ryb2tlLXdpZHRoOiA4OwoJCn0KCi5oaXJlLXJhbmdlLXNsaWRlcjpob3ZlciA+IC5yYW5nZS1saW5lIHsKCQp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLnJhbmdlLWxpbmUgY2lyY2xlIHsKCXN0cm9rZS13aWR0aDogMDsKfQoKLmhpcmUtcmFuZ2Utc2xpZGVyIC5yYW5nZS1saW5lIGNpcmNsZS5ob3ZlcmluZywKLmhpcmUtcmFuZ2Utc2xpZGVyIC5yYW5nZS1saW5lIGNpcmNsZTpob3ZlciB7CglmaWxsOiAjYmRhNDdlOwp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLnJhbmdlLWxpbmUgcGF0aC5ob3ZlcmluZywKLmhpcmUtcmFuZ2Utc2xpZGVyIC5yYW5nZS1saW5lIHBhdGg6aG92ZXIgewoJc3Ryb2tlOiAjYmRhNDdlOwp9","base64");
-if (typeof window != 'undefined' && window.document) {
-	(0, _insertCss2["default"])(css, { prepend: true });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+var css = Buffer("LmhpcmUtcmFuZ2Utc2xpZGVyIHsKICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7CiAgICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lOwogICAgLW1zLXVzZXItc2VsZWN0OiBub25lOwogICAgdXNlci1zZWxlY3Q6IG5vbmU7CiAgICAtd2Via2l0LXVzZXItZHJhZzogbm9uZTsKICAgIHVzZXItZHJhZzogbm9uZTsKCWN1cnNvcjogcG9pbnRlcjsKCXdpZHRoOiAxMDAlOwoJc3Ryb2tlOiAjZjFlYmU2OwoJZmlsbDogI2YxZWJlNjsKfQoKLyouaGlyZS1yYW5nZS1zbGlkZXIgLmN1cnJlbnQtcmFuZ2UtbGluZSB7CglzdHJva2Utd2lkdGg6IDg7Cn0qLwoKLmhpcmUtcmFuZ2Utc2xpZGVyOmhvdmVyID4gLmN1cnJlbnQtcmFuZ2UtbGluZSB7Cgp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLmN1cnJlbnQtcmFuZ2UtbGluZSBjaXJjbGUgewoJc3Ryb2tlLXdpZHRoOiAwOwp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLmN1cnJlbnQtcmFuZ2UtbGluZSBjaXJjbGUuaG92ZXJpbmcsCi5oaXJlLXJhbmdlLXNsaWRlciAuY3VycmVudC1yYW5nZS1saW5lIGNpcmNsZTpob3ZlciB7CglmaWxsOiAjYmRhNDdlOwp9CgouaGlyZS1yYW5nZS1zbGlkZXIgLmN1cnJlbnQtcmFuZ2UtbGluZSBwYXRoLmhvdmVyaW5nLAouaGlyZS1yYW5nZS1zbGlkZXIgLmN1cnJlbnQtcmFuZ2UtbGluZSBwYXRoOmhvdmVyIHsKCXN0cm9rZTogI2JkYTQ3ZTsKfQo=","base64");
+if (typeof window !== 'undefined' && window.document) {
+	(0, _insertCss2.default)(css, { prepend: true });
 }
 
 var MOUSE_DOWN = 0;
 var MOUSE_UP = 1;
 
-var RangeSlider = (function (_React$Component) {
-	_inherits(RangeSlider, _React$Component);
+var RangeSlider = function (_Component) {
+	_inherits(RangeSlider, _Component);
 
 	function RangeSlider(props) {
 		_classCallCheck(this, RangeSlider);
 
-		_get(Object.getPrototypeOf(RangeSlider.prototype), "constructor", this).call(this, props);
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RangeSlider).call(this, props));
 
-		this.mouseState = MOUSE_UP;
-		this.mouseUpListener = this.onMouseUp.bind(this);
-		this.mouseMoveListener = this.onMouseMove.bind(this);
-		this.touchMoveListener = this.onTouchMove.bind(this);
+		_this.mouseState = MOUSE_UP;
+		_this.mouseUpListener = _this.onMouseUp.bind(_this);
+		_this.mouseMoveListener = _this.onMouseMove.bind(_this);
+		_this.touchMoveListener = _this.onTouchMove.bind(_this);
 
-		this.state = _extends({}, this.propsToState(this.props), { hoverState: null });
+		_this.state = _extends({}, _this.propsToState(_this.props), { hoverState: null });
+		return _this;
 	}
 
 	_createClass(RangeSlider, [{
-		key: "componentDidMount",
+		key: 'componentDidMount',
 		value: function componentDidMount() {
-			window.addEventListener("mouseup", this.mouseUpListener);
-			window.addEventListener("mousemove", this.mouseMoveListener);
-			window.addEventListener("touchend", this.mouseUpListener);
-			window.addEventListener("touchmove", this.touchMoveListener);
+			window.addEventListener('mouseup', this.mouseUpListener);
+			window.addEventListener('mousemove', this.mouseMoveListener);
+			window.addEventListener('touchend', this.mouseUpListener);
+			window.addEventListener('touchmove', this.touchMoveListener);
 		}
 	}, {
-		key: "componentWillReceiveProps",
+		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
 			this.setState(this.propsToState(nextProps));
 		}
 	}, {
-		key: "componentWillUnmount",
+		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
-			window.removeEventListener("mouseup", this.mouseUpListener);
-			window.removeEventListener("mousemove", this.mouseMoveListener);
-			window.removeEventListener("touchend", this.mouseUpListener);
-			window.removeEventListener("touchmove", this.touchMoveListener);
+			window.removeEventListener('mouseup', this.mouseUpListener);
+			window.removeEventListener('mousemove', this.mouseMoveListener);
+			window.removeEventListener('touchend', this.mouseUpListener);
+			window.removeEventListener('touchmove', this.touchMoveListener);
 		}
 	}, {
-		key: "propsToState",
-		value: function propsToState(props) {
-			var lowerLimit = props.lowerLimit || 0;
-			var upperLimit = props.upperLimit || 1;
-			return {
-				lowerLimit: lowerLimit,
-				upperLimit: upperLimit
-			};
-		}
-	}, {
-		key: "getPositionForLimit",
+		key: 'getPositionForLimit',
 		value: function getPositionForLimit(pageX) {
-			var rect = _reactDom2["default"].findDOMNode(this).getBoundingClientRect();
+			var rect = this.refs.svg.getBoundingClientRect();
+
 			if (rect.width > 0) {
 				var percentage = (pageX - rect.left) / rect.width;
 				if (percentage > 1) {
@@ -122,7 +110,7 @@ var RangeSlider = (function (_React$Component) {
 				}
 				var center = (this.state.upperLimit + this.state.lowerLimit) / 2;
 
-				if (this.state.hoverState === "bar") {
+				if (this.state.hoverState === 'bar') {
 					var lowerLimit = percentage + this.state.lowerLimit - center;
 					var upperLimit = percentage - (center - this.state.upperLimit);
 					if (upperLimit >= 1) {
@@ -132,12 +120,12 @@ var RangeSlider = (function (_React$Component) {
 						lowerLimit = 0;
 					}
 					return { lowerLimit: lowerLimit, upperLimit: upperLimit };
-				} else if (this.state.hoverState === "lowerLimit") {
+				} else if (this.state.hoverState === 'lowerLimit') {
 					if (percentage >= this.state.upperLimit) {
 						percentage = this.state.upperLimit;
 					}
 					return { lowerLimit: percentage };
-				} else if (this.state.hoverState === "upperLimit") {
+				} else if (this.state.hoverState === 'upperLimit') {
 					if (percentage <= this.state.lowerLimit) {
 						percentage = this.state.lowerLimit;
 					}
@@ -147,7 +135,17 @@ var RangeSlider = (function (_React$Component) {
 			return null;
 		}
 	}, {
-		key: "setRange",
+		key: 'propsToState',
+		value: function propsToState(props) {
+			var lowerLimit = props.lowerLimit || 0;
+			var upperLimit = props.upperLimit || 1;
+			return {
+				lowerLimit: lowerLimit,
+				upperLimit: upperLimit
+			};
+		}
+	}, {
+		key: 'setRange',
 		value: function setRange(pageX) {
 			var posForLim = this.getPositionForLimit(pageX);
 			if (posForLim !== null) {
@@ -156,14 +154,14 @@ var RangeSlider = (function (_React$Component) {
 			}
 		}
 	}, {
-		key: "onMouseDown",
-		value: function onMouseDown(target, ev) {
+		key: 'onMouseDown',
+		value: function onMouseDown(hoverState, ev) {
 			this.mouseState = MOUSE_DOWN;
-			this.setState({ hoverState: target });
+			this.setState({ hoverState: hoverState });
 			return ev.preventDefault();
 		}
 	}, {
-		key: "onMouseMove",
+		key: 'onMouseMove',
 		value: function onMouseMove(ev) {
 			if (this.mouseState === MOUSE_DOWN) {
 				this.setRange(ev.pageX);
@@ -171,7 +169,7 @@ var RangeSlider = (function (_React$Component) {
 			}
 		}
 	}, {
-		key: "onTouchMove",
+		key: 'onTouchMove',
 		value: function onTouchMove(ev) {
 			if (this.mouseState === MOUSE_DOWN) {
 				this.setRange(ev.touches[0].pageX);
@@ -179,7 +177,7 @@ var RangeSlider = (function (_React$Component) {
 			}
 		}
 	}, {
-		key: "onMouseUp",
+		key: 'onMouseUp',
 		value: function onMouseUp() {
 			if (this.mouseState === MOUSE_DOWN) {
 				this.props.onChange(_extends({}, this.state, { refresh: true }));
@@ -188,40 +186,72 @@ var RangeSlider = (function (_React$Component) {
 			this.mouseState = MOUSE_UP;
 		}
 	}, {
-		key: "getRangePath",
-		value: function getRangePath() {
-			return "M" + (8 + Math.floor(this.state.lowerLimit * 400)) + " 13 L " + (Math.ceil(this.state.upperLimit * 400) - 8) + " 13 Z";
+		key: 'getRangeLine',
+		value: function getRangeLine() {
+			var radius = this.props.handleRadius;
+			return 'M' + radius + ' ' + radius + ' L ' + (400 + radius) + ' ' + radius + ' Z';
 		}
 	}, {
-		key: "getRangeCircle",
+		key: 'getCurrentRangeLine',
+		value: function getCurrentRangeLine() {
+			var startX = this.props.handleRadius + Math.floor(this.state.lowerLimit * 400);
+			var endX = this.props.handleRadius + Math.ceil(this.state.upperLimit * 400);
+			var y = this.props.handleRadius;
+			return 'M' + startX + ' ' + y + ' L ' + endX + ' ' + y + ' Z';
+		}
+	}, {
+		key: 'getRangeCircle',
 		value: function getRangeCircle(key) {
+			var _this2 = this;
+
 			var percentage = this.state[key];
-			return _react2["default"].createElement("circle", {
-				className: this.state.hoverState === key ? "hovering" : "",
-				cx: percentage * 400, cy: "13",
-				onMouseDown: this.onMouseDown.bind(this, key),
-				onTouchStart: this.onMouseDown.bind(this, key),
-				r: "13" });
+
+			return _react2.default.createElement('circle', {
+				className: this.state.hoverState === key ? 'hovering' : '',
+				cx: this.props.handleRadius + percentage * 400,
+				cy: this.props.handleRadius,
+				onMouseDown: function onMouseDown(ev) {
+					return _this2.onMouseDown(key, ev);
+				},
+				onTouchStart: function onTouchStart(ev) {
+					return _this2.onMouseDown(key, ev);
+				},
+				r: this.props.handleRadius
+			});
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
-			var keys = this.state.hoverState === "lowerLimit" ? ["upperLimit", "lowerLimit"] : ["lowerLimit", "upperLimit"];
-			return _react2["default"].createElement(
-				"svg",
-				{ className: "hire-range-slider",
-					viewBox: "0 0 400 26" },
-				_react2["default"].createElement("path", { d: "M0 0 L 0 26 Z", fill: "transparent" }),
-				_react2["default"].createElement("path", { d: "M400 0 L 400 26 Z", fill: "transparent" }),
-				_react2["default"].createElement("path", { d: "M0 13 L 400 13 Z", fill: "transparent" }),
-				_react2["default"].createElement(
-					"g",
-					{ className: "range-line" },
-					_react2["default"].createElement("path", {
-						className: this.state.hoverState === "bar" ? "hovering" : "",
-						d: this.getRangePath(),
-						onMouseDown: this.onMouseDown.bind(this, "bar"),
-						onTouchStart: this.onMouseDown.bind(this, "bar")
+			var _this3 = this;
+
+			var keys = this.state.hoverState === 'lowerLimit' ? ['upperLimit', 'lowerLimit'] : ['lowerLimit', 'upperLimit'];
+
+			return _react2.default.createElement(
+				'svg',
+				{
+					className: 'hire-range-slider',
+					ref: 'svg',
+					viewBox: '0 0 ' + (400 + this.props.handleRadius * 2) + ' ' + (this.props.handleRadius * 2 + 2)
+				},
+				_react2.default.createElement('path', {
+					className: 'range-line',
+					d: this.getRangeLine(),
+					fill: 'transparent',
+					strokeWidth: this.props.lineWidth
+				}),
+				_react2.default.createElement(
+					'g',
+					{ className: 'current-range-line' },
+					_react2.default.createElement('path', {
+						strokeWidth: this.props.lineWidth,
+						className: this.state.hoverState === 'bar' ? 'hovering' : '',
+						d: this.getCurrentRangeLine(),
+						onMouseDown: function onMouseDown(ev) {
+							return _this3.onMouseDown('bar', ev);
+						},
+						onTouchStart: function onTouchStart(ev) {
+							return _this3.onMouseDown('bar', ev);
+						}
 					}),
 					this.getRangeCircle(keys[0]),
 					this.getRangeCircle(keys[1])
@@ -231,16 +261,22 @@ var RangeSlider = (function (_React$Component) {
 	}]);
 
 	return RangeSlider;
-})(_react2["default"].Component);
+}(_react.Component);
 
 RangeSlider.propTypes = {
-	lowerLimit: _react2["default"].PropTypes.number,
-	onChange: _react2["default"].PropTypes.func.isRequired,
-	upperLimit: _react2["default"].PropTypes.number
+	handleRadius: _react.PropTypes.number,
+	lineWidth: _react.PropTypes.number,
+	lowerLimit: _react.PropTypes.number,
+	onChange: _react.PropTypes.func.isRequired,
+	upperLimit: _react.PropTypes.number
 };
 
-exports["default"] = RangeSlider;
-module.exports = exports["default"];
+RangeSlider.defaultProps = {
+	handleRadius: 8,
+	lineWidth: 4
+};
 
-},{"insert-css":1,"react":"react","react-dom":"react-dom"}]},{},[2])(2)
+exports.default = RangeSlider;
+
+},{"insert-css":1,"react":"react"}]},{},[2])(2)
 });

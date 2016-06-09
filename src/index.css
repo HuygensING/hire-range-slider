@@ -1,8 +1,8 @@
 .hire-range-slider {
     -moz-user-select: none;
     -webkit-user-select: none;
-    -ms-user-select: none; 
-    user-select: none; 
+    -ms-user-select: none;
+    user-select: none;
     -webkit-user-drag: none;
     user-drag: none;
 	cursor: pointer;
@@ -11,25 +11,24 @@
 	fill: #f1ebe6;
 }
 
-.hire-range-slider .range-line {
+/*.hire-range-slider .current-range-line {
 	stroke-width: 8;
-	
+}*/
+
+.hire-range-slider:hover > .current-range-line {
+
 }
 
-.hire-range-slider:hover > .range-line {
-	
-}
-
-.hire-range-slider .range-line circle {
+.hire-range-slider .current-range-line circle {
 	stroke-width: 0;
 }
 
-.hire-range-slider .range-line circle.hovering,
-.hire-range-slider .range-line circle:hover {
+.hire-range-slider .current-range-line circle.hovering,
+.hire-range-slider .current-range-line circle:hover {
 	fill: #bda47e;
 }
 
-.hire-range-slider .range-line path.hovering,
-.hire-range-slider .range-line path:hover {
+.hire-range-slider .current-range-line path.hovering,
+.hire-range-slider .current-range-line path:hover {
 	stroke: #bda47e;
 }

@@ -1,3 +1,6 @@
+### v2.1.0	(2016/6/9 15:24)
+* Add handle and bar size to props
+
 ### v2.0.0	(2016/5/10 13:2)
 * Bump react peers to 15.0.2
 * removed unused devDeps

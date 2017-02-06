@@ -1,3 +1,6 @@
+### v3.0.0	(2017/2/6 16:32)
+* Remove Browserify
+
 ### v2.1.0	(2016/6/9 15:24)
 * Add handle and bar size to props
 

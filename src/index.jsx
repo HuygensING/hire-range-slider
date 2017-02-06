@@ -1,11 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import insertCss from 'insert-css';
-
-const fs = require('fs');
-const css = fs.readFileSync(`${__dirname}/index.css`);
-if (typeof window !== 'undefined' && window.document) {
-	insertCss(css, { prepend: true });
-}
 
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;

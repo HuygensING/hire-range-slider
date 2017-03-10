@@ -1,3 +1,6 @@
+### v3.0.1	(2017/3/10 11:48)
+* Move to typescript
+
 ### v3.0.0	(2017/2/6 16:32)
 * Remove Browserify
 

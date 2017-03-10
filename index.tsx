@@ -1,43 +1,64 @@
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
 
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;
 
-class RangeSlider extends Component {
-	constructor(props) {
-		super(props);
+const propsToState = (props) => {
+	const lowerLimit = props.lowerLimit || 0;
+	const upperLimit = props.upperLimit || 1;
+	return {
+		lowerLimit,
+		upperLimit,
+	};
+};
 
-		this.mouseState = MOUSE_UP;
-		this.mouseUpListener = this.onMouseUp.bind(this);
-		this.mouseMoveListener = this.onMouseMove.bind(this);
-		this.touchMoveListener = this.onTouchMove.bind(this);
+interface IProps {
+	handleRadius: number;
+	lineWidth: number;
+	lowerLimit: number;
+	onChange: (data: IOnChangeData) => void;
+	upperLimit: number;
+}
 
-		this.state = {
-			...this.propsToState(this.props),
-			...{ hoverState: null },
-		};
+interface IState {
+	hoverState: string;
+	lowerLimit?: number;
+	upperLimit?: number;
+}
+
+interface IOnChangeData extends IState {
+	refresh: boolean;
+}
+
+class RangeSlider extends React.Component<IProps, IState> {
+	private mouseState = MOUSE_UP;
+	private node;
+
+	public state = {
+		...propsToState(this.props),
+		...{ hoverState: null },
+	};
+
+	public componentDidMount() {
+		window.addEventListener('mouseup', this.mouseUp);
+		window.addEventListener('mousemove', this.mouseMove);
+		window.addEventListener('touchend', this.mouseUp);
+		window.addEventListener('touchmove', this.touchMove);
 	}
 
-	componentDidMount() {
-		window.addEventListener('mouseup', this.mouseUpListener);
-		window.addEventListener('mousemove', this.mouseMoveListener);
-		window.addEventListener('touchend', this.mouseUpListener);
-		window.addEventListener('touchmove', this.touchMoveListener);
+	public componentWillReceiveProps(nextProps) {
+		this.setState(propsToState(nextProps));
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState(this.propsToState(nextProps));
+	public componentWillUnmount() {
+		window.removeEventListener('mouseup', this.mouseUp);
+		window.removeEventListener('mousemove', this.mouseMove);
+		window.removeEventListener('touchend', this.mouseUp);
+		window.removeEventListener('touchmove', this.touchMove);
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('mouseup', this.mouseUpListener);
-		window.removeEventListener('mousemove', this.mouseMoveListener);
-		window.removeEventListener('touchend', this.mouseUpListener);
-		window.removeEventListener('touchmove', this.touchMoveListener);
-	}
-
-	getPositionForLimit(pageX) {
-		const rect = this.refs.svg.getBoundingClientRect();
+	private getPositionForLimit(pageX: number) {
+		const rect = this.node.getBoundingClientRect();
 
 		if (rect.width > 0) {
 			let percentage = (pageX - rect.left) / rect.width;
@@ -55,7 +76,9 @@ class RangeSlider extends Component {
 				if (lowerLimit <= 0) { lowerLimit = 0; }
 				return { lowerLimit, upperLimit };
 			} else if (this.state.hoverState === 'lowerLimit') {
-				if (percentage >= this.state.upperLimit) { percentage = this.state.upperLimit; }
+				if (percentage >= this.state.upperLimit) {
+					percentage = this.state.upperLimit;
+				}
 				return { lowerLimit: percentage };
 			} else if (this.state.hoverState === 'upperLimit') {
 				if (percentage <= this.state.lowerLimit) { percentage = this.state.lowerLimit; }
@@ -65,16 +88,7 @@ class RangeSlider extends Component {
 		return null;
 	}
 
-	propsToState(props) {
-		const lowerLimit = props.lowerLimit || 0;
-		const upperLimit = props.upperLimit || 1;
-		return {
-			lowerLimit,
-			upperLimit,
-		};
-	}
-
-	setRange(pageX) {
+	private setRange(pageX) {
 		const posForLim = this.getPositionForLimit(pageX);
 		if (posForLim !== null) {
 			this.setState(posForLim);
@@ -82,48 +96,47 @@ class RangeSlider extends Component {
 		}
 	}
 
-	onMouseDown(hoverState, ev) {
+	private mouseDown = (hoverState, ev) => {
 		this.mouseState = MOUSE_DOWN;
 		this.setState({ hoverState });
 		return ev.preventDefault();
-	}
+	};
 
-
-	onMouseMove(ev) {
+	private mouseMove = (ev) => {
 		if (this.mouseState === MOUSE_DOWN) {
 			this.setRange(ev.pageX);
 			return ev.preventDefault();
 		}
-	}
+	};
 
-	onTouchMove(ev) {
-		if (this.mouseState === MOUSE_DOWN) {
-			this.setRange(ev.touches[0].pageX);
-			return ev.preventDefault();
-		}
-	}
-
-	onMouseUp() {
+	private mouseUp = () => {
 		if (this.mouseState === MOUSE_DOWN) {
 			this.props.onChange({ ...this.state, refresh: true });
 		}
 		this.setState({ hoverState: null });
 		this.mouseState = MOUSE_UP;
-	}
+	};
 
-	getRangeLine() {
+	private touchMove = (ev) => {
+		if (this.mouseState === MOUSE_DOWN) {
+			this.setRange(ev.touches[0].pageX);
+			return ev.preventDefault();
+		}
+	};
+
+	private getRangeLine() {
 		const radius = this.props.handleRadius;
 		return `M${radius} ${radius} L ${400 + radius} ${radius} Z`;
 	}
 
-	getCurrentRangeLine() {
+	private getCurrentRangeLine() {
 		const startX = this.props.handleRadius + Math.floor(this.state.lowerLimit * 400);
 		const endX = this.props.handleRadius + Math.ceil(this.state.upperLimit * 400);
 		const y = this.props.handleRadius;
 		return `M${startX} ${y} L ${endX} ${y} Z`;
 	}
 
-	getRangeCircle(key) {
+	private getRangeCircle(key) {
 		const percentage = this.state[key];
 
 		return (
@@ -131,8 +144,8 @@ class RangeSlider extends Component {
 				className={this.state.hoverState === key ? 'hovering' : ''}
 				cx={this.props.handleRadius + percentage * 400}
 				cy={this.props.handleRadius}
-				onMouseDown={(ev) => this.onMouseDown(key, ev)}
-				onTouchStart={(ev) => this.onMouseDown(key, ev)}
+				onMouseDown={(ev) => this.mouseDown(key, ev)}
+				onTouchStart={(ev) => this.mouseDown(key, ev)}
 				r={this.props.handleRadius}
 			/>
 		);
@@ -146,7 +159,9 @@ class RangeSlider extends Component {
 		return (
 			<svg
 				className="hire-range-slider"
-				ref="svg"
+				ref={(node) => {
+					this.node = node;
+				}}
 				viewBox={`0 0 ${400 + this.props.handleRadius * 2} ${this.props.handleRadius * 2 + 2}`}
 			>
 				<path
@@ -160,8 +175,8 @@ class RangeSlider extends Component {
 						strokeWidth={this.props.lineWidth}
 						className={this.state.hoverState === 'bar' ? 'hovering' : ''}
 						d={this.getCurrentRangeLine()}
-						onMouseDown={(ev) => this.onMouseDown('bar', ev)}
-						onTouchStart={(ev) => this.onMouseDown('bar', ev)}
+						onMouseDown={(ev) => this.mouseDown('bar', ev)}
+						onTouchStart={(ev) => this.mouseDown('bar', ev)}
 					/>
 					{this.getRangeCircle(keys[0])}
 					{this.getRangeCircle(keys[1])}
@@ -171,17 +186,17 @@ class RangeSlider extends Component {
 	}
 }
 
-RangeSlider.propTypes = {
-	handleRadius: PropTypes.number,
-	lineWidth: PropTypes.number,
-	lowerLimit: PropTypes.number,
-	onChange: PropTypes.func.isRequired,
-	upperLimit: PropTypes.number,
-};
-
-RangeSlider.defaultProps = {
-	handleRadius: 8,
-	lineWidth: 4,
-};
+// RangeSlider.propTypes = {
+// 	handleRadius: PropTypes.number,
+// 	lineWidth: PropTypes.number,
+// 	lowerLimit: PropTypes.number,
+// 	onChange: PropTypes.func.isRequired,
+// 	upperLimit: PropTypes.number,
+// };
+//
+// RangeSlider.defaultProps = {
+// 	handleRadius: 8,
+// 	lineWidth: 4,
+// };
 
 export default RangeSlider;

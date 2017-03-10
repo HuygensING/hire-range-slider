@@ -1,3 +1,7 @@
+### v3.0.2	(2017/3/10 12:10)
+* Don't update state on every mouse up
+* Refactor passing props to state
+
 ### v3.0.1	(2017/3/10 11:48)
 * Move to typescript
 

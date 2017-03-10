@@ -35,8 +35,16 @@ class RangeSlider extends React.Component<IProps, IState> {
 	private node;
 
 	public state = {
-		...propsToState(this.props),
-		...{ hoverState: null },
+		hoverState: null,
+		lowerLimit: this.props.lowerLimit,
+		upperLimit: this.props.upperLimit,
+	};
+
+	public static defaultProps: Partial<IProps> = {
+		handleRadius: 8,
+		lineWidth: 4,
+		lowerLimit: 0,
+		upperLimit: 1,
 	};
 
 	public componentDidMount() {
@@ -47,7 +55,10 @@ class RangeSlider extends React.Component<IProps, IState> {
 	}
 
 	public componentWillReceiveProps(nextProps) {
-		this.setState(propsToState(nextProps));
+		this.setState({
+			lowerLimit: nextProps.lowerLimit,
+			upperLimit: nextProps.upperLimit,
+		});
 	}
 
 	public componentWillUnmount() {
@@ -58,7 +69,7 @@ class RangeSlider extends React.Component<IProps, IState> {
 	}
 
 	private getPositionForLimit(pageX: number) {
-		const rect = this.node.getBoundingClientRect();
+		const rect: ClientRect = this.node.getBoundingClientRect();
 
 		if (rect.width > 0) {
 			let percentage = (pageX - rect.left) / rect.width;
@@ -85,6 +96,7 @@ class RangeSlider extends React.Component<IProps, IState> {
 				return { upperLimit: percentage };
 			}
 		}
+
 		return null;
 	}
 
@@ -152,6 +164,7 @@ class RangeSlider extends React.Component<IProps, IState> {
 	}
 
 	render() {
+		console.log(this.state)
 		const keys = this.state.hoverState === 'lowerLimit' ?
 			['upperLimit', 'lowerLimit'] :
 			['lowerLimit', 'upperLimit'];
@@ -185,18 +198,5 @@ class RangeSlider extends React.Component<IProps, IState> {
 		);
 	}
 }
-
-// RangeSlider.propTypes = {
-// 	handleRadius: PropTypes.number,
-// 	lineWidth: PropTypes.number,
-// 	lowerLimit: PropTypes.number,
-// 	onChange: PropTypes.func.isRequired,
-// 	upperLimit: PropTypes.number,
-// };
-//
-// RangeSlider.defaultProps = {
-// 	handleRadius: 8,
-// 	lineWidth: 4,
-// };
 
 export default RangeSlider;

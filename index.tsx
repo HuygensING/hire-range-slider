@@ -124,8 +124,8 @@ class RangeSlider extends React.Component<IProps, IState> {
 	private mouseUp = () => {
 		if (this.mouseState === MOUSE_DOWN) {
 			this.props.onChange({ ...this.state, refresh: true });
+			this.setState({ hoverState: null });
 		}
-		this.setState({ hoverState: null });
 		this.mouseState = MOUSE_UP;
 	};
 
@@ -164,7 +164,6 @@ class RangeSlider extends React.Component<IProps, IState> {
 	}
 
 	render() {
-		console.log(this.state)
 		const keys = this.state.hoverState === 'lowerLimit' ?
 			['upperLimit', 'lowerLimit'] :
 			['lowerLimit', 'upperLimit'];

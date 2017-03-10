@@ -34,8 +34,8 @@ class RangeSlider extends React.Component {
         this.mouseUp = () => {
             if (this.mouseState === MOUSE_DOWN) {
                 this.props.onChange(Object.assign({}, this.state, { refresh: true }));
+                this.setState({ hoverState: null });
             }
-            this.setState({ hoverState: null });
             this.mouseState = MOUSE_UP;
         };
         this.touchMove = (ev) => {
@@ -122,7 +122,6 @@ class RangeSlider extends React.Component {
         return (React.createElement("circle", { className: this.state.hoverState === key ? 'hovering' : '', cx: this.props.handleRadius + percentage * 400, cy: this.props.handleRadius, onMouseDown: (ev) => this.mouseDown(key, ev), onTouchStart: (ev) => this.mouseDown(key, ev), r: this.props.handleRadius }));
     }
     render() {
-        console.log(this.state);
         const keys = this.state.hoverState === 'lowerLimit' ?
             ['upperLimit', 'lowerLimit'] :
             ['lowerLimit', 'upperLimit'];

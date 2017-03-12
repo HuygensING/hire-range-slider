@@ -3,21 +3,12 @@ import * as React from 'react';
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;
 
-const propsToState = (props) => {
-	const lowerLimit = props.lowerLimit || 0;
-	const upperLimit = props.upperLimit || 1;
-	return {
-		lowerLimit,
-		upperLimit,
-	};
-};
-
 interface IProps {
-	handleRadius: number;
-	lineWidth: number;
-	lowerLimit: number;
+	handleRadius?: number;
+	lineWidth?: number;
+	lowerLimit?: number;
 	onChange: (data: IOnChangeData) => void;
-	upperLimit: number;
+	upperLimit?: number;
 }
 
 interface IState {

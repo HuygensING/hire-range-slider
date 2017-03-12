@@ -3,14 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const MOUSE_DOWN = 0;
 const MOUSE_UP = 1;
-const propsToState = (props) => {
-    const lowerLimit = props.lowerLimit || 0;
-    const upperLimit = props.upperLimit || 1;
-    return {
-        lowerLimit,
-        upperLimit,
-    };
-};
 class RangeSlider extends React.Component {
     constructor() {
         super(...arguments);

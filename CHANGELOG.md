@@ -1,3 +1,6 @@
+### v3.0.3	(2017/3/12 8:25)
+* Not all props are required
+
 ### v3.0.2	(2017/3/10 12:10)
 * Don't update state on every mouse up
 * Refactor passing props to state

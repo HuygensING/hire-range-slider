@@ -1,3 +1,6 @@
+### v3.1.0	(2018/10/9 14:15)
+* Bump deps and add src dir
+
 ### v3.0.3	(2017/3/12 8:25)
 * Not all props are required
 

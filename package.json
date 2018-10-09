@@ -4,7 +4,8 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "bump": "hi-bump"
+    "bump": "hi-bump",
+    "watch": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -13,11 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^15.0.15",
+    "@types/react": "^16.4.14",
     "hi-bump": "^1.1.1",
-    "typescript": "^2.2.1"
+    "tslib": "^1.9.3",
+    "typescript": "^3.1.1"
   },
   "dependencies": {
-    "react": "^15.4.2"
+    "react": "^16.5.2"
   }
 }

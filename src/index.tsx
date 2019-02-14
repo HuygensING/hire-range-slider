@@ -82,8 +82,9 @@ class RangeSlider extends React.Component<Props, State> {
 			[ActiveElement.UpperLimit, ActiveElement.LowerLimit] :
 			[ActiveElement.LowerLimit, ActiveElement.UpperLimit]
 
-		const viewBoxHeight = this.props.handleRadius * 2
-		const viewBoxWidth = VIEW_BOX_WIDTH + this.props.handleRadius * 2
+		// Add the lineWidth to the view box, because of the handle's stroke
+		const viewBoxHeight = this.props.handleRadius * 2 + this.props.lineWidth
+		const viewBoxWidth = VIEW_BOX_WIDTH + this.props.handleRadius * 2 + this.props.lineWidth
 
 		return (
 			<svg
@@ -196,14 +197,20 @@ class RangeSlider extends React.Component<Props, State> {
 	}
 
 	private getRangeLine() {
-		const radius = this.props.handleRadius
-		return `M${radius} ${radius} L ${VIEW_BOX_WIDTH + radius} ${radius} Z`
+		const { handleRadius: radius, lineWidth } = this.props
+		const strokeWidth = lineWidth / 2
+		const startX = radius + strokeWidth
+		const endX = VIEW_BOX_WIDTH + radius + strokeWidth
+		const y = radius + strokeWidth
+		return `M${startX} ${y} L ${endX} ${y} Z`
 	}
 
 	private getCurrentRangeLine() {
-		const startX = this.props.handleRadius + Math.floor(this.state.lowerLimit * VIEW_BOX_WIDTH)
-		const endX = this.props.handleRadius + Math.ceil(this.state.upperLimit * VIEW_BOX_WIDTH)
-		const y = this.props.handleRadius
+		const { handleRadius: radius, lineWidth } = this.props
+		const strokeWidth = lineWidth / 2
+		const startX = radius + strokeWidth + Math.floor(this.state.lowerLimit * VIEW_BOX_WIDTH)
+		const endX = radius + strokeWidth + Math.ceil(this.state.upperLimit * VIEW_BOX_WIDTH)
+		const y = radius + strokeWidth
 		return `M${startX} ${y} L ${endX} ${y} Z`
 	}
 }

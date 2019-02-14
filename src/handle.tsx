@@ -10,8 +10,8 @@ interface Props {
 }
 export default (props: Props) =>
 	<circle
-		cx={(props.radius) + (props.percentage * VIEW_BOX_WIDTH)}
-		cy={props.radius}
+		cx={(props.radius + props.strokeWidth/2) + (props.percentage * VIEW_BOX_WIDTH)}
+		cy={props.radius + props.strokeWidth/2}
 		fill="white"
 		onMouseDown={props.onMouseDown}
 		onTouchStart={props.onTouchStart}
@@ -19,21 +19,3 @@ export default (props: Props) =>
 		stroke="gray"
 		strokeWidth={props.strokeWidth}
 	/>
-
-
-	// private getRangeCircle(key: HoverState) {
-	// 	const percentage = key === HoverState.LowerLimit ?
-	// 		this.state.lowerLimit :
-	// 		this.state.upperLimit
-
-	// 	return (
-	// 		<circle
-	// 			className={this.state.hoverState === key ? 'hovering' : ''}
-	// 			cx={this.props.handleRadius + percentage * 400}
-	// 			cy={this.props.handleRadius}
-	// 			onMouseDown={(ev) => this.mouseDown(key, ev)}
-	// 			onTouchStart={(ev) => this.mouseDown(key, ev)}
-	// 			r={this.props.handleRadius}
-	// 		/>
-	// 	);
-	// }

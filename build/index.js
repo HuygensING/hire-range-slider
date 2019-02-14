@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = require("react");
-const handle_1 = require("./handle");
-exports.VIEW_BOX_WIDTH = 400;
+import * as React from 'react';
+import Handle from './handle';
+export const VIEW_BOX_WIDTH = 400;
 var MouseState;
 (function (MouseState) {
     MouseState[MouseState["Down"] = 0] = "Down";
@@ -71,13 +69,13 @@ class RangeSlider extends React.Component {
         const handleOrder = this.state.activeElement === ActiveElement.LowerLimit ?
             [ActiveElement.UpperLimit, ActiveElement.LowerLimit] :
             [ActiveElement.LowerLimit, ActiveElement.UpperLimit];
-        const viewBoxHeight = this.props.handleRadius * 2;
-        const viewBoxWidth = exports.VIEW_BOX_WIDTH + this.props.handleRadius * 2;
+        const viewBoxHeight = this.props.handleRadius * 2 + this.props.lineWidth;
+        const viewBoxWidth = VIEW_BOX_WIDTH + this.props.handleRadius * 2 + this.props.lineWidth;
         return (React.createElement("svg", { ref: this.svgRef, style: Object.assign({ boxSizing: 'border-box', padding: `${this.props.lineWidth / 2}px`, width: '100%' }, this.props.style), viewBox: `0 0 ${viewBoxWidth} ${viewBoxHeight}` },
             React.createElement("path", { d: this.getRangeLine(), fill: "transparent", stroke: "lightgray", strokeWidth: this.props.lineWidth }),
             React.createElement("g", { className: "current-range-line" },
                 React.createElement("path", { stroke: "#AAA", strokeWidth: this.props.lineWidth, d: this.getCurrentRangeLine(), onMouseDown: (ev) => this.mouseDown(ActiveElement.Bar, ev), onTouchStart: (ev) => this.mouseDown(ActiveElement.Bar, ev) }),
-                handleOrder.map(limit => React.createElement(handle_1.default, { key: limit, strokeWidth: this.props.lineWidth, onMouseDown: (ev) => this.mouseDown(limit, ev), onTouchStart: (ev) => this.mouseDown(limit, ev), percentage: limit === ActiveElement.LowerLimit ? this.state.lowerLimit : this.state.upperLimit, radius: this.props.handleRadius })))));
+                handleOrder.map(limit => React.createElement(Handle, { key: limit, strokeWidth: this.props.lineWidth, onMouseDown: (ev) => this.mouseDown(limit, ev), onTouchStart: (ev) => this.mouseDown(limit, ev), percentage: limit === ActiveElement.LowerLimit ? this.state.lowerLimit : this.state.upperLimit, radius: this.props.handleRadius })))));
     }
     getPositionForLimit(pageX) {
         const rect = this.svgRef.current.getBoundingClientRect();
@@ -120,13 +118,19 @@ class RangeSlider extends React.Component {
         }
     }
     getRangeLine() {
-        const radius = this.props.handleRadius;
-        return `M${radius} ${radius} L ${exports.VIEW_BOX_WIDTH + radius} ${radius} Z`;
+        const { handleRadius: radius, lineWidth } = this.props;
+        const strokeWidth = lineWidth / 2;
+        const startX = radius + strokeWidth;
+        const endX = VIEW_BOX_WIDTH + radius + strokeWidth;
+        const y = radius + strokeWidth;
+        return `M${startX} ${y} L ${endX} ${y} Z`;
     }
     getCurrentRangeLine() {
-        const startX = this.props.handleRadius + Math.floor(this.state.lowerLimit * exports.VIEW_BOX_WIDTH);
-        const endX = this.props.handleRadius + Math.ceil(this.state.upperLimit * exports.VIEW_BOX_WIDTH);
-        const y = this.props.handleRadius;
+        const { handleRadius: radius, lineWidth } = this.props;
+        const strokeWidth = lineWidth / 2;
+        const startX = radius + strokeWidth + Math.floor(this.state.lowerLimit * VIEW_BOX_WIDTH);
+        const endX = radius + strokeWidth + Math.ceil(this.state.upperLimit * VIEW_BOX_WIDTH);
+        const y = radius + strokeWidth;
         return `M${startX} ${y} L ${endX} ${y} Z`;
     }
 }
@@ -137,4 +141,4 @@ RangeSlider.defaultProps = {
     style: {},
     upperLimit: 1,
 };
-exports.default = RangeSlider;
+export default RangeSlider;

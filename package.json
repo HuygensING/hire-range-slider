@@ -1,11 +1,10 @@
 {
   "name": "hire-range-slider",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "bump": "hi-bump",
     "build": "tsc",
     "watch": "tsc -w"
   },
@@ -17,7 +16,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.4.14",
-    "hi-bump": "^1.1.1",
     "tslib": "^1.9.3",
     "typescript": "^3.3.3",
     "react": "16.5.2"

@@ -58,7 +58,6 @@ class RangeSlider extends React.Component<Props, State> {
 
 	componentDidMount() {
 		window.addEventListener('mouseup', this.mouseUp)
-		window.addEventListener('mousemove', this.mouseMove)
 		window.addEventListener('touchend', this.mouseUp)
 		window.addEventListener('touchmove', this.touchMove)
 	}
@@ -72,7 +71,6 @@ class RangeSlider extends React.Component<Props, State> {
 
 	componentWillUnmount() {
 		window.removeEventListener('mouseup', this.mouseUp)
-		window.removeEventListener('mousemove', this.mouseMove)
 		window.removeEventListener('touchend', this.mouseUp)
 		window.removeEventListener('touchmove', this.touchMove)
 	}
@@ -86,6 +84,7 @@ class RangeSlider extends React.Component<Props, State> {
 		const viewBoxHeight = this.props.handleRadius * 2 + this.props.lineWidth
 		const viewBoxWidth = VIEW_BOX_WIDTH + this.props.handleRadius * 2 + this.props.lineWidth
 
+		console.log(this.state)
 		return (
 			<svg
 				ref={this.svgRef}
@@ -130,7 +129,7 @@ class RangeSlider extends React.Component<Props, State> {
 		);
 	}
 
-	private getPositionForLimit(pageX: number): Partial<State> {
+	private getPositionForLimit(pageX: number): { upperLimit?: State['upperLimit'], lowerLimit?: State['lowerLimit']} {
 		const rect: ClientRect = this.svgRef.current.getBoundingClientRect()
 
 		if (rect.width > 0) {
@@ -161,14 +160,16 @@ class RangeSlider extends React.Component<Props, State> {
 	}
 
 	private setRange(pageX: number) {
-		const posForLim = this.getPositionForLimit(pageX) as Pick<State, keyof State>
+		const posForLim = this.getPositionForLimit(pageX)
 		if (posForLim !== null) {
 			this.setState(posForLim)
-			this.props.onChange({ ...this.state, refresh: false })
+			// this.props.onChange({ ...this.state, refresh: false })
 		}
 	}
 
 	private mouseDown = (activeElement: ActiveElement, ev: MouseDownEvent) => {
+		window.addEventListener('mousemove', this.mouseMove)
+
 		this.mouseState = MouseState.Down
 		this.setState({ activeElement })
 		return ev.preventDefault()
@@ -189,6 +190,8 @@ class RangeSlider extends React.Component<Props, State> {
 	}
 
 	private mouseUp = () => {
+		window.removeEventListener('mousemove', this.mouseMove)
+
 		if (this.mouseState === MouseState.Down) {
 			this.props.onChange({ ...this.state, refresh: true })
 			this.setState({ activeElement: null })

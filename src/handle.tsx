@@ -8,8 +8,9 @@ interface Props {
 	radius: number
 	strokeWidth: number
 }
-export default (props: Props) =>
-	<circle
+export default (props: Props) => {
+	console.log((props.radius + props.strokeWidth/2) + (props.percentage * VIEW_BOX_WIDTH))
+	return <circle
 		cx={(props.radius + props.strokeWidth/2) + (props.percentage * VIEW_BOX_WIDTH)}
 		cy={props.radius + props.strokeWidth/2}
 		fill="white"
@@ -19,3 +20,4 @@ export default (props: Props) =>
 		stroke="gray"
 		strokeWidth={props.strokeWidth}
 	/>
+}
